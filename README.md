@@ -14,7 +14,7 @@ $ cd ~/.ellipsis/bin
 ```
 
 ```
-$ ellipsis install chibbluffy/dotfiles
+$ ellipsis install chibbluffy/files
 $ pip install --user powerline-status
 $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 $ vim
