@@ -135,7 +135,8 @@ alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
 alias gc='git commit -m'
-alias gp='git push'
+alias gp='git pull'
+alias gps='git push'
 alias gf='git fetch'
 
 # Tmux
@@ -145,7 +146,8 @@ alias attach='tmux attach -t'
 alias detach='tmux detach'
 
 # Share folder
-alias sharefolder='echo tom:25565; python -m http.server 25565'
+# alias sharefolder='echo tom:25565; python -m http.server 25565'
+alias sharefolder='python3 -m http.server 25565'
 
 # Config edits
 alias mybash='vim ~/.bashrc'
@@ -165,7 +167,4 @@ alias resume='fg'
 
 
 
-# Discord bot junk
-export DISCORD_TOKEN=NDQ4NjczNzE4NTg0MDgyNDUz.XulRIw.e3wHi9N5Hr6VVbkCHDDKakwQqJs
-export DISCORD_WEBHOOK_URL=https://discordapp.com/api/webhooks/722575261803216926/15Ff04dm4vrJdTuRbnouFMnxr8QWp39EeFWUEYft-UH5SNAriX2xZ5Zm3En5cuD8AGIL
 neofetch
