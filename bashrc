@@ -12,38 +12,53 @@ main() {
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-  export GOPATH="$HOME/go"
-  export GITHUB_HOST=github.adtran.com
-  # alias vpn='sudo openconnect -b -l -u JHossler --juniper vpn.adtran.com'
+  export GOPATH=$HOME/go
+  export GOROOT="$(brew --prefix golang)/libexec"
+  export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+
+  # alias vpn='sudo openconnect -b -l -u <Username> --juniper <VPN Server>'
   # alias vpn-reset='sudo kill -6 $(pidof openconnect)'
   shopt -s checkwinsize
 
   # Aliases
   # navigation
-  alias la='ls -la'
+  alias la='ls -laGF'
+  alias ls='ls -GF'
   alias mygrep='grep -nr $1'
   alias c='clear'
   alias open='gio open $1'
   # virtual envs
   alias activenv='source venv/bin/activate'
-  alias activenvv='source ~/Documents/venv/bin/activate'
-  alias activenvvv='source ~/Documents/venv3/bin/activate'
+  alias activenvv='source ~/venv/bin/activate'
+  alias activenvvv='source ~/venv3/bin/activate'
   # github shortcuts
   alias h='hub'
   alias gs='git status'
   alias gd='git diff'
   alias ga='git add'
   alias gc='git commit -m'
-  alias gp='git push'
+  alias gp='git pull'
+  alias gps='git push'
   alias gf='git fetch'
+  # tmux shortcuts
+  alias newmux='tmux new -s'
+  alias killmux='tmux kill-server'
+  alias attach='tmux attach -t'
+  alias detach='tmux detach'
   # sharing stuff online
-  alias sharefolder='echo twan-pc:25565; python -m SimpleHTTPServer 25565'
+  # This one was for python2. New one Python3
+  # alias sharefolder='echo twan-pc:25565; python -m SimpleHTTPServer 25565'
+  alias sharefolder='python3 -m http.server 25565'
   # open configs
   alias mybash='vim ~/.bashrc'
+  alias myz='viM ~/.zshrc'
   alias mytmux='vim ~/.tmux.conf'
   alias myvim='vim ~/.vimrc'
   # re-source bash
   alias rebash='source ~/.bashrc'
+  alias rez='source ~/.zshrc'
+  # other shortcuts
+  alias resume='fg'
 
   # settings
   stty -ixon
@@ -51,7 +66,6 @@ main() {
 
 create_aliases() {
   alias grep='grep --color=auto --exclude=*~'
-  alias ls='ls -G'
   command_exists thefuck && eval $(thefuck --alias shimatta)
 }
 
@@ -81,8 +95,8 @@ setup_environment_variables() {
   export HISTSIZE=100000  # More command history! YAY!
   export HISTFILESIZE=10000000  # and the space to store those commands
   export HISTCONTROL=ignoreboth  # Ignore duplicate commands and commands that start with ' '
-  export HISTCONTROL+=':erasedups'  # Erase duplicates form history
-  export HISTIGNORE='ls:bg:fg:history'
+  export HISTCONTROL+=':erasedups'  # Erase duplicates from history
+  export HISTIGNORE='ls:bg:fg:history:clear'
   safe_append_prompt_command 'history -a'  # Store history immediately
   export GPG_TTY=$(tty)  # Enables interactive password entry for gpg
   export CHROME_BIN=chromium  # Enables angular to find chrome exe
@@ -97,6 +111,8 @@ setup_all_the_bash_stuff() {
 
 add_to_path() {
   export PATH="$1":"$PATH"
+  # tryng to fix powerline
+  export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 }
 export -f add_to_path
 
@@ -110,8 +126,6 @@ add_to_path "$HOME/.rvm/bin"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-# Enable touch screen scrolling for firefox
-export MOZ_USE_XINPUT2=1
 
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
@@ -127,8 +141,16 @@ function zz() {
   zenity --info --text="Finished $@" --display=:0
 }
 
-if [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
-      source ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+# For Linux
+# if [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
+#       source ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+# fi
+
+# For mac
+if [ -f ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh ]; then
+      source ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
 fi
 
+# For Mac Catalina and later, to stop the message about bash not default anymore
+export BASH_SILENCE_DEPRECATION_WARNING=1
 

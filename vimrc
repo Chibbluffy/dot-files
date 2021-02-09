@@ -64,7 +64,8 @@ au BufNewFile,BufRead *.sux set filetype=javascript
 :set number
 :set relativenumber
 :set nocompatible
-:set clipboard=unnamedplus
+:set clipboard=unnamed " for Mac
+" :set clipboard=unnamedplus " for Linux
 
 :set backspace=indent,eol,start  " more powerful backspacing
 
@@ -75,17 +76,12 @@ au BufNewFile,BufRead *.sux set filetype=javascript
 
 :set colorcolumn=80
 
-:nnoremap j k
-:nnoremap k j
-:vnoremap j k
-:vnoremap k j
+" swaps j and k bindings
+":nnoremap j k
+":nnoremap k j
+":vnoremap j k
+":vnoremap k j
 
-:nmap \j <Esc>:%!python -m json.tool<CR>
-:imap jk <Esc>
-"closes preview"
-:nmap tt :pclose<CR>
-"adds a space"
-:nmap <space> i<space><Esc>
 
 let g:syntastic_cpp_compiler = "g++"
 let g:syntastic_cpp_compiler_opertions = "-std=c++11 -Wall -Wextra -Wpedantic"
@@ -100,3 +96,50 @@ autocmd FileWritePre    * :call TrimWhiteSpace()
 autocmd FileAppendPre   * :call TrimWhiteSpace()
 autocmd FilterWritePre  * :call TrimWhiteSpace()
 autocmd BufWritePre     * :call TrimWhiteSpace()
+
+
+" cool custom shortcuts
+" =====================
+"json linter
+:nmap \j <Esc>:%!python -m json.tool<CR>
+"ESC
+":imap jk <Esc>
+:imap yy <Esc>
+"closes preview"
+:nmap tt :pclose<CR>
+"adds a space"
+:nmap <space> i<space><Esc>
+"re-sources vimrc
+:nnoremap \v :source ~/.vimrc<CR>
+
+
+"Rebindings for Workman keyboard layout
+"J AND K (N AND E) STILL SWAPPED :P
+:noremap  q q
+:noremap  d w
+:noremap  r e
+:noremap  w r
+:noremap  b t
+:noremap  j y
+:noremap  f u
+:noremap  u i
+:noremap  p o
+:noremap  ; p
+:noremap  a a
+:noremap  s s
+:noremap  h d
+:noremap  t f
+:noremap  g g
+:noremap  y h
+:noremap  n k
+:noremap  e j
+:noremap  o l
+:noremap  i ;
+:noremap  z z
+:noremap  x x
+:noremap  m c
+:noremap  c v
+:noremap  v b
+:noremap  k n
+:noremap  l m
+
